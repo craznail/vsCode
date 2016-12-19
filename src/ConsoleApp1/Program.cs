@@ -10,7 +10,7 @@ namespace ConsoleApp1
     {
         public static void Main(string[] args)
         {
-            
+            goto ALLDONE;            
 
             #region 32bit md5
             MD5:
