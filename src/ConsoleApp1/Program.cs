@@ -11,31 +11,13 @@ namespace ConsoleApp1
         public static void Main(string[] args)
         {
 
-            ListItem topItem = new ListItem
-            {
-                Name = "111",
-                Value = "1",
-                ChildItems = new List<ListItem>{
-                new ListItem{Name="111_111",Value="1_1",ChildItems = new List<ListItem>{
-                    new ListItem{Name="all",Value="all"},
-                    new ListItem{Name="111_111_111",Value="1_1_1"},
-                    new ListItem{Name="111_111_222",Value="1_1_2"}
-                }},
-                new ListItem{Name="111_222",Value="1_2",ChildItems = new List<ListItem>{
-                    new ListItem{Name="all",Value="all"},
-                    new ListItem{Name="111_222_111",Value="1_2_1"},
-                    new ListItem{Name="111_222_222",Value="1_2_2"}
-                }},
-                new ListItem{Name="111_333",Value="1_3",ChildItems = new List<ListItem>{
-                    new ListItem{Name="all",Value="all"},
-                    new ListItem{Name="111_333_111",Value="1_3_1"},
-                    new ListItem{Name="111_333_222",Value="1_3_2"}
-                }},
-            }
-            };
+        string titleTemplate = "{0}{1}{2}餐厅推荐_吃货最喜欢{1}{2}餐厅推荐点评_订餐小秘书吃货荐店";
+        string keywordsTemplage = "{0}{1}{2}餐厅推荐,{1}{2}餐厅点评,吃货荐店";
+        string descriTemplate = "吃货在订餐小秘书不仅可以在线预订{0}{1}{2}餐厅，还可以参与{1}{2}餐厅点评，自主推荐最喜欢的{1}{2}餐厅，用图片、美文推荐餐厅相关信息，让更多吃货一起参与吃货荐店吧。";
 
-            bool isFlag = FlagSelectItem(topItem, "1_2_2");
-            Console.WriteLine(isFlag);
+        Console.WriteLine(string.Format(titleTemplate, "a", "a", "a")) ;
+        Console.WriteLine(string.Format(keywordsTemplage, "a", "a", "a"));
+        Console.WriteLine(string.Format(descriTemplate, "a", "a", "a"));
             goto ALLDONE;
 
         #region 32bit md5
