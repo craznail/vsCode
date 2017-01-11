@@ -11,13 +11,10 @@ namespace ConsoleApp1
         public static void Main(string[] args)
         {
 
-        string titleTemplate = "{0}{1}{2}餐厅推荐_吃货最喜欢{1}{2}餐厅推荐点评_订餐小秘书吃货荐店";
-        string keywordsTemplage = "{0}{1}{2}餐厅推荐,{1}{2}餐厅点评,吃货荐店";
-        string descriTemplate = "吃货在订餐小秘书不仅可以在线预订{0}{1}{2}餐厅，还可以参与{1}{2}餐厅点评，自主推荐最喜欢的{1}{2}餐厅，用图片、美文推荐餐厅相关信息，让更多吃货一起参与吃货荐店吧。";
+        string selectname;
+        FunA(out selectname);
+        Console.WriteLine(selectname);
 
-        Console.WriteLine(string.Format(titleTemplate, "a", "a", "a")) ;
-        Console.WriteLine(string.Format(keywordsTemplage, "a", "a", "a"));
-        Console.WriteLine(string.Format(descriTemplate, "a", "a", "a"));
             goto ALLDONE;
 
         #region 32bit md5
@@ -30,6 +27,18 @@ namespace ConsoleApp1
         ALLDONE:
             Console.WriteLine("Press any key to exit...");
             Console.Read();
+        }
+
+
+        private static void FunA(out string a)
+        {
+            a="a";
+            FunB(out a);            
+        }
+
+        private static void FunB(out string b)
+        {
+            b="b";
         }
 
         private static bool FlagSelectItem(ListItem item, string selectStr)
