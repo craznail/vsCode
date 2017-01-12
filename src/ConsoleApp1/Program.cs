@@ -11,10 +11,13 @@ namespace ConsoleApp1
         public static void Main(string[] args)
         {
 
-        string selectname;
-        FunA(out selectname);
-        Console.WriteLine(selectname);
+        // string selectname;
+        // FunA(out selectname);
+        // Console.WriteLine(selectname);
 
+        List<string> a = new List<string>();
+        a.Select(b=>b=="a").ToArray();
+        Console.WriteLine(a.Count);
             goto ALLDONE;
 
         #region 32bit md5
