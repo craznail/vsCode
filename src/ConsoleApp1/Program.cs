@@ -11,21 +11,32 @@ namespace ConsoleApp1
         public static void Main(string[] args)
         {
 
-        // string selectname;
-        // FunA(out selectname);
-        // Console.WriteLine(selectname);
+            ListItem testItem = new ListItem { Name = "test" };
+            ListItem topItem = new ListItem
+            {
+                Name = "111",
+                Value = "1",
+                ChildItems = new List<ListItem>{
+                new ListItem{Name="111_111",Value="1_1",ChildItems = new List<ListItem>{
+                        new ListItem{Name="all",Value="all"},
+                        new ListItem{Name="111_111_111",Value="1_1_1"},
+                        new ListItem{Name="111_111_222",Value="1_1_2"}
+                    }},
+                new ListItem{Name="111_222",Value="1_2",ChildItems = new List<ListItem>{
+                        new ListItem{Name="all",Value="all"},
+                        new ListItem{Name="111_222_111",Value="1_2_1"},
+                        new ListItem{Name="111_222_222",Value="1_2_2"}
+                    }},
+                new ListItem{Name="111_333",Value="1_3",ChildItems = new List<ListItem>{
+                    new ListItem{Name="all",Value="all"},
+                    new ListItem{Name="111_333_111",Value="1_3_1"},
+                    new ListItem{Name="111_333_222",Value="1_3_2"}
+                    }},
+                }
+            };
 
-        List<string> a = new List<string>();
-        a.Select(b=>b=="a").ToArray();
-        Console.WriteLine(a.Count);
-            goto ALLDONE;
-
-        #region 32bit md5
-        MD5:
-            Console.WriteLine(MD5Encrypt2("Hello World!"));
-        #endregion
-
-
+            FlagSelectItem(topItem,"1_3_1",(a,b)=>a==b,ref testItem);
+            Console.WriteLine(testItem.Name);
 
         ALLDONE:
             Console.WriteLine("Press any key to exit...");
@@ -35,21 +46,21 @@ namespace ConsoleApp1
 
         private static void FunA(out string a)
         {
-            a="a";
-            FunB(out a);            
+            a = "a";
+            FunB(out a);
         }
 
         private static void FunB(out string b)
         {
-            b="b";
+            b = "b";
         }
 
-        private static bool FlagSelectItem(ListItem item, string selectStr)
+        private static bool FlagSelectItem(ListItem item, string value, Func<string, string, bool> compare,ref ListItem SelectItem)
         {
-            Console.WriteLine(item.Name);
-            if (item != null && item.Value == selectStr)
+            if (item != null && item.Type != 5 && item.Value != null && compare(value, item.Value))//type为5的为字母表列表，永远不选中
             {
                 item.Selected = true;
+                SelectItem = item;
                 return true;
             }
 
@@ -57,12 +68,14 @@ namespace ConsoleApp1
             {
                 foreach (var itm in item.ChildItems)
                 {
-                    bool isChildFind = FlagSelectItem(itm, selectStr);
-                    if (isChildFind)
+                    if (FlagSelectItem(itm, value, compare,ref SelectItem))
                     {
                         itm.Selected = true;
-                        item.Selected = true;//父元素标记为true
-                        return true;
+                        item.Selected = true;//父元素也标记为true
+                        if (itm.Type == 7)//如果是智能推荐，同一级元素可以多选
+                            continue;
+                        else
+                            return true;
                     }
                 }
             }
