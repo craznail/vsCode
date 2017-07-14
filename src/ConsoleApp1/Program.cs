@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
@@ -10,9 +12,46 @@ namespace ConsoleApp1
     {
         public static void Main(string[] args)
         {
+            Task<int> t = GetTotalLengthWrapper();
+            Console.WriteLine("Before return result!");
+            Console.WriteLine(t.Result);
         ALLDONE:
             Console.WriteLine("Press any key to exit...");
             Console.Read();
+        }
+
+        public static async Task<int> GetTotalLengthWrapper()
+        {
+            Console.WriteLine("hello from GetTotalLengthWrapper");
+            int length = await GetTotalLength();
+            Console.WriteLine("hello end from GetTotalLengthWrapper");
+            return length;
+        }
+
+        public static async Task<int> GetTotalLength()
+        {
+            Console.WriteLine("hello before from GetTotallength");
+            int total = await GetGoogleIndexLength() + await GetWebSiteIndexLength();
+            Console.WriteLine("hello end from GetTotallength");
+            return total;
+        }
+
+        public static async Task<int> GetWebSiteIndexLength()
+        {
+            Console.WriteLine("hello from GetWebSiteIndexLength");
+            HttpClient client = new HttpClient();
+            string responseStr = await client.GetStringAsync("http://www.xiaomishu.com");
+            Console.WriteLine("hello end GetWebSiteIndexLength");
+            return responseStr.Length;
+        }
+
+        public static async Task<int> GetGoogleIndexLength()
+        {
+            Console.WriteLine("hello from GetGoogleIndexLength");
+            HttpClient client = new HttpClient();
+            string responseStr = await client.GetStringAsync("http://m.xiaomishu.com");
+            Console.WriteLine("hello end GetGoogleIndexLength");
+            return responseStr.Length;
         }
 
         public static int BinarySearch(int[] array, int high, int low, int key)
